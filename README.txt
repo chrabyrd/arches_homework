@@ -1,4 +1,4 @@
-# This is a template project for the Farallon Arches new hire homework assignment.  
+This is a template project for the Farallon Arches new hire homework assignment.  
 
 In this exercise, you will deploy Arches software in an environment of your choosing, upload this "project and package" into the software, and then build a custom function (in python) that saves spatial information denoting a place or address into a field within a simple Arches resource model.
 
@@ -6,7 +6,7 @@ As part of this homework, please do the following:
 
 1. Fork this repo into your own github account
 2. Install Arches (https://github.com/archesproject/arches) and all relevant dependencies in your own environment
-3. Install this "project" on top of your Arches installation
+3. Clone this project and load the arches package within it (arches_homework/pkg) using the load_package command
 4. Write a custom function populates spatial data into the geometry node the provided resource model
 
 Resources:
