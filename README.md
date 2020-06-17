@@ -5,9 +5,11 @@ In this exercise you will deploy Arches software in an environment of your choos
 As part of this homework, please do the following:
 
 1. Fork this repo into your own github account
-2. Install Arches (https://github.com/archesproject/arches) and all relevant dependencies in your own environment
-3. Clone this project and load the arches package within it (arches_homework/pkg) using the load_package command
-4. Write a custom function that populates spatial data (a geojson feature collection) into the geometry node of the provided resource model
+2. Install all relevant [dependencies](https://arches.readthedocs.io/en/stable/requirements-and-dependencies/) in your own environment
+3. Clone the master branch of [Arches](https://github.com/archesproject/arches)
+4. Use pip to install Arches from your [git clone](https://arches.readthedocs.io/en/stable/creating-a-development-environment/#creating-a-development-environment). Note: you do not need to create your own a project and package.
+5. Clone this project and load the arches package within it (arches_homework/pkg) using the load_package command
+6. Write a custom function that populates spatial data (a geojson feature collection) into the geometry node of the provided resource model
 
 Resources:
 Arches documentation: https://arches.readthedocs.io/en/stable/
