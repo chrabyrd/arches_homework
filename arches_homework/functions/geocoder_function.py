@@ -1,12 +1,12 @@
-import uuid
+from urllib.parse import quote
+
 from arches.app.functions.base import BaseFunction
-from arches.app.models import models
-from arches.app.models.tile import Tile
-import json
+
+from arches_homework.tasks import _get_location_data
 
 
-from arches_homework.tasks import _foo
-
+ADDRESS_OR_LOCATION = "Address or Location"
+GEOMETRY = "Geometry"
 
 details = {
     "name": "Geocoder Function",
@@ -18,29 +18,30 @@ details = {
     "functionid": "019d49c4-3d48-43c7-87e0-c84542255353",
 }
 
-# import pdb; pdb.set_trace()
-
-# MAPBOX API KEY pk.eyJ1IjoiY2hpYXR0IiwiYSI6ImZRLTZDbVkifQ.2ZLLC1kInvxJ7isk_0_OMw
-
-# start the worker with -I celery.task.http
-
 class GeocoderFunction(BaseFunction):
-    def save(self, tile, request):
+  def save(self, tile, request):
+    homework_model_nodes = tile.resourceinstance.graph.node_set
 
-        bar = _foo.delay()
-        baz = bar.get()
+    location_node_uuid = homework_model_nodes.get(name=ADDRESS_OR_LOCATION).pk
+    location_input_value = tile.data[str(location_node_uuid)]
 
-        print(baz)
+    location_data_promise = _get_location_data.delay(
+      quote(location_input_value)  # quote formats user input to be url-safe
+    )
 
-    def post_save(self, tile, request):
-        print("running after tile save")
+    geometry_node_uuid = homework_model_nodes.get(name=GEOMETRY).pk
+    
+    tile.data[str(geometry_node_uuid)] = location_data_promise.get()
 
-    def on_import(self, tile, request):
-        print("calling on import")
+  def post_save(self, tile, request):
+    print("running after tile save")
 
-    def get(self, tile, request):
-        print("calling get")
+  def on_import(self, tile, request):
+    print("calling on import")
 
-    def delete(self, tile, request):
-        print("calling delete")
+  def get(self, tile, request):
+    print("calling get")
+
+  def delete(self, tile, request):
+    print("calling delete")
 
